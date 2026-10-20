@@ -8,11 +8,11 @@ START_DATETIME = "2026-10-12 11:01:00"
 STOP_DATETIME = "2026-10-12 11:06:00"
 TIMEZONE = "Europe/Amsterdam"  # Timezone of the two times above, e.g. "UTC" or "Etc/GMT-1" (= UTC+1).
 
-FIBER_RANGE_M = (600, 1200)  # (start, end) in metres; None for the whole fiber.
+FIBER_RANGE_M = (20, 1250)  # (start, end) in metres; None for the whole fiber.
 NORMALIZE_CHANNELS = False  # Equalize channel amplitudes.
 BANDPASS_HZ = None  # e.g. (5, 200); None for no filter.
 INTERPOLATION = "kaiser"  # Waterfall smoothing, e.g. "nearest", "bilinear", "kaiser".
-CLIP_QUANTILE = 0.99  # 1.0 shows the full amplitude range; lower values boost contrast.
+CLIP_QUANTILE = 0.8  # 1.0 shows the full amplitude range; lower values boost contrast.
 
 DISPLAY_SECONDS = 10  # Seconds of data visible at once.
 PLAYBACK_SPEED = 4.0  # Recorded seconds per real second.
