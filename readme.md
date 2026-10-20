@@ -1,224 +1,106 @@
 # BeaverFiber
 
-BeaverFiber selects time windows from OptoDAS distributed acoustic sensing (DAS)
-HDF5 recordings and saves a waterfall image and a power spectral density (PSD)
-plot. Select tests from an event-list CSV or supply a manual UTC time window.
+BeaverFiber plots OptoDAS fiber-optic (DAS) recordings stored as `.hdf5` files:
 
-Original recordings are opened read-only and are never changed.
+- **`view_events.py`** saves a waterfall plot and a noise/signal power spectrum
+  (PSD) for each test in your event list, and optionally a SEG-Y file.
+- **`waterfall_stream.py`** plays the recordings as a scrolling waterfall movie.
+
+Your recordings are only read, never changed.
 
 ## 1. Install
 
-The included Pixi environment supports Windows. Install [Pixi](https://pixi.sh),
-clone this repository, and open a PowerShell terminal in the project folder:
+Install [Pixi](https://pixi.sh), then open PowerShell in this folder and run:
 
 ```powershell
 pixi install
 ```
 
-Pixi installs Python, the required libraries, and the BeaverFiber package. You do
-not need to activate an environment before using the commands below.
+## 2. Point to your data
 
-## 2. Configure your data
-
-For a new checkout, create your local configuration:
+Copy the example settings file:
 
 ```powershell
 Copy-Item .env_example .env
 ```
 
-Edit `.env` to point to your recordings and event list. Forward slashes work in
-Windows paths:
+Open `.env` and set the folder with your `.hdf5` recordings (subfolders are
+included) and the path to your event list:
 
 ```dotenv
 data_folder = "C:/DAS/recordings"
 event_list = "C:/DAS/events.csv"
 ```
 
-The recording folder is searched recursively. Relative paths are resolved from
-the directory containing `.env`. Your `.env`, recordings, and generated outputs
-are excluded from Git.
-
-### Event-list CSV
-
-Use a UTF-8, comma-separated CSV with these column names. Additional columns,
-such as coordinates and notes, are allowed.
+The event list is a CSV file with at least these columns:
 
 ```csv
 Test-ID,Date,1e meting,2e meting
 IJK-002,12-10-2026,11:06:15,11:06:45
 ```
 
-- `Test-ID`: the test identifier, for example `IJK-002` or `PRF-001g1`.
 - `Date`: `DD-MM-YYYY` or `YYYY-MM-DD`.
-- `1e meting` and `2e meting`: actual measurement times in `HH:MM:SS` format.
-  Leave an unknown time blank, not `nan`. At least one actual time is required.
+- `1e meting` / `2e meting`: measurement time as `HH:MM:SS`. Leave a time blank
+  if it is unknown.
 
-These are measurement instants, not planned times. The selected window spans the
-earliest through latest measurement, plus the requested context.
+## 3. Plot events
 
-**Timezones matter:** the event list is interpreted using `EVENT_TIMEZONE` in the
-user script. `Europe/Amsterdam` handles Dutch winter and summer time. For example,
-11:06:15 CEST on 12 October 2026 becomes 09:06:15 UTC. HDF5 timestamps and plot
-axes use UTC.
-
-## 3. Select and plot
-
-Open `view_events.py` and edit the input settings at the top. It imports the
-package; file selection, loading, and plotting happen inside BeaverFiber.
-
-For example, select one test:
-
-```python
-TIME_WINDOW_UTC = None
-EVENT_TIMEZONE = "Europe/Amsterdam"
-TEST_IDS = ["IJK-002"]
-
-BEFORE_SECONDS = 10
-AFTER_SECONDS = 10
-CHANNELS = None
-CHANNEL_RANGE = None
-NORMALIZE_CHANNELS = True
-BANDPASS_HZ = None
-SHOW_PLOTS = False
-```
-
-Run:
+Open `view_events.py`, edit the settings at the top, and run:
 
 ```powershell
 pixi run view-events
 ```
 
-Each selected ID produces `outputs/<Test-ID>_waterfall_psd.png`. Repeating a run
-for the same ID overwrites that PNG. `OUTPUT_DIR` changes the destination.
-`SHOW_PLOTS = False` saves without opening windows; `True` also opens each plot.
-The terminal reports the selected UTC window and source recordings.
+| Setting | Meaning |
+|---|---|
+| `TEST_IDS` | Tests to plot, e.g. `["IJK-001", "IJK-027"]`. |
+| `MEASUREMENT` | `"1e meting"` or `"2e meting"`. |
+| `TIME_DELTA` | Clock difference between the event list and the recordings (UTC): UTC = event-list time − `TIME_DELTA`. |
+| `NOISE_SECONDS` | Seconds before the measurement (the noise window). |
+| `SIGNAL_SECONDS` | Seconds from the measurement onward (the signal window). |
+| `FIBER_RANGE_M` | Part of the fiber to show, in metres, e.g. `(20, 1250)`. `None` shows the whole fiber. |
+| `NORMALIZE_CHANNELS` | `True` gives every channel a similar color strength in the waterfall. |
+| `BANDPASS_HZ` | Frequency filter, e.g. `(5, 200)`. `None` means no filter. |
+| `INTERPOLATION` | Waterfall smoothing: `"nearest"` (none), `"bilinear"`, `"kaiser"`, ... |
+| `CLIP_QUANTILE` | Color contrast. `1.0` shows the full amplitude range; `0.99` clips the strongest 1 %, making weak signals easier to see. |
+| `SHOW_PLOTS` | `True` opens every plot in a window. |
+| `WRITE_SEGY` | `True` also saves a `.sgy` file to open in seismic software. |
 
-### Manual time window
+Results are saved in `outputs/`, for example
+`IJK-001_1e_meting_waterfall_psd.png` (and `.sgy`).
 
-Set `TIME_WINDOW_UTC` to an exact start/end pair:
+The waterfall shows fiber distance horizontally and time (UTC) vertically, with
+a dashed line at the measurement. The PSD panel compares the average spectrum of
+the noise window with that of the signal window.
 
-```python
-TIME_WINDOW_UTC = (
-    "2026-10-12 09:06:05",
-    "2026-10-12 09:06:55",
-)
-```
+The SEG-Y file contains the same samples as the plot (with the bandpass filter,
+if set), one trace per channel. The fiber distance is stored as receiver X
+(in millimetres, scalar −1000) and the exact start and measurement times are in
+the text header.
 
-This overrides `TEST_IDS`, `EVENT_TIMEZONE`, and the before/after durations. No
-event list is needed in manual mode. Start is included and end is excluded,
-subject to the recording's sample grid. Timestamps without an offset mean UTC;
-ISO timestamps with `Z` or an explicit offset are also accepted.
+## 4. Play a waterfall movie
 
-Set it back to `None` to use the event list. Manual PNG names contain their UTC
-start and end timestamps and have no measurement markers.
-
-### Channel selection
-
-Leave both selectors as `None` for the full recorded fiber. Otherwise, set only
-one:
-
-```python
-CHANNELS = [0, 98, 200]
-CHANNEL_RANGE = None
-```
-
-Or use an inclusive channel-ID interval:
-
-```python
-CHANNELS = None
-CHANNEL_RANGE = (4, 176)
-```
-
-These are IDs from the HDF5 header, not array-column numbers or distances in
-metres. The plot uses the corresponding fiber-distance metadata. No geographic
-coordinate-to-fiber mapping is performed.
-
-### Normalization and filtering
-
-`NORMALIZE_CHANNELS = True` makes weak spatial patterns easier to see when some
-channels are much noisier than others. For display only, each channel is divided
-by its 75th-percentile absolute amplitude in the selected window, with a minimum
-scale of one count. Colors use fixed limits of +/-3. This does not affect the
-PSD, but normalized colors cannot be compared as absolute amplitudes between
-channels or events. Set it to `False` for raw-count colors.
-
-`BANDPASS_HZ = None` disables additional filtering. A pair enables it:
-
-```python
-BANDPASS_HZ = (2.0, 40.0)
-```
-
-The Butterworth bandpass is applied per channel to the joined time window, using
-second-order sections and forward/backward zero-phase filtering. It affects both
-the waterfall and PSD, before display normalization. The passband is shown in
-the figure. Cutoffs must satisfy `0 < LOW < HIGH < sample_rate / 2`.
-
-The example frequencies are a starting point, not an optimum for every signal.
-Include enough time before and after an event: edge effects and pre-ringing can
-affect apparent onset times, even with zero-phase filtering. Compare timing
-against unfiltered data.
-
-## 4. Read the plots
-
-- **Waterfall:** horizontal axis is fiber distance; vertical axis is UTC time,
-  increasing downward. Red and blue represent opposite signal signs. Dashed
-  lines mark actual measurement times in ID mode.
-- **Raw colors:** limits are symmetric and use the 99th percentile of absolute
-  counts. Values outside the limits saturate the colors; they are not deleted.
-- **PSD:** the mean of individual selected-channel Welch spectra over the entire
-  window. Units are counts squared per Hz. It uses Hann segments up to two
-  seconds long with 50% overlap; the DC bin is not plotted.
-
-Plots use stored integer counts, or filtered counts when enabled, not calibrated
-strain. Display normalization never changes the PSD. All selected channels,
-including zero-only channels, contribute to the PSD average.
-
-Fiber distances are measurement locations, not geographic coordinates. Gauge
-length is different from channel spacing; both depend on acquisition metadata.
-
-## Troubleshooting
-
-- **No recordings overlap:** check the event date, timezone, and archive coverage.
-  Do not shift times simply to select a stronger-looking signal.
-- **Unreadable file warning:** the file is skipped and its path/error is printed.
-  Recopy or inspect it. If this leaves a gap in the requested window, plotting
-  fails rather than concealing the missing data.
-- **Gap, overlap, or changed settings:** the requested data must be continuous and
-  have compatible sampling and channel/distance metadata.
-- **Invalid event time:** replace `nan` with a real measurement time or leave it
-  blank if another actual time is available. Planned times are not a fallback.
-- **Filtering error:** check the cutoffs and use a longer time window.
-- **Blank part of the fiber:** the stored samples may be zero there. Increasing
-  display gain cannot create missing signal.
-
-## Other interfaces
-
-The package can be imported from another Python script:
-
-```python
-from beaverfiber import plot_events
-
-paths = plot_events(
-    test_ids=["IJK-002"],
-    env_file=".env",
-    event_timezone="Europe/Amsterdam",
-    normalize_channels=True,
-    show=False,
-)
-```
-
-It returns the saved figure paths. It is also installable with `pip install .`
-in an existing Python environment.
-
-The command-line interface offers the same options:
+Open `waterfall_stream.py`, set `START_DATETIME`, `STOP_DATETIME` and the other
+settings, and run:
 
 ```powershell
-pixi run beaverfiber-plot --test-ids IJK-002 --normalize-channels --no-show
-pixi run beaverfiber-plot --help
+pixi run waterfall-stream
 ```
 
-Run the focused tests:
+Press **Space** or click **Pause** to pause; close the window to stop.
 
-```powershell
-pixi run test
-```
+`TIMEZONE` is the time zone of the start and stop times, for example
+`"Europe/Amsterdam"` or `"UTC"`. For a fixed offset use `"Etc/GMT-1"` for
+UTC+1 or `"Etc/GMT+1"` for UTC−1 (the sign is reversed).
+
+If the movie stutters, lower `MAX_TIME_ROWS`, `FPS` or `PLAYBACK_SPEED`, or
+select a shorter `FIBER_RANGE_M`.
+
+## Common errors
+
+- **No valid ... time for ...**: the measurement time for that test is empty in
+  the event list.
+- **Recordings do not cover the complete requested time** or **Gap in
+  recordings**: part of the requested time is missing from your recordings.
+- **Skipping unreadable recording ...**: that `.hdf5` file is damaged or
+  incomplete; it is ignored.

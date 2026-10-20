@@ -1,5 +1,2 @@
-"""BeaverFiber event-window extraction and plotting."""
-
-from .workflow import plot_events
-
-__all__ = ["plot_events"]
+from .plot_event import plot_events
+from .waterfall_stream import stream_waterfall

@@ -1,53 +1,41 @@
-"""Edit the inputs below, then run: pixi run python view_events.py."""
+"""Save a waterfall and PSD plot per test. Edit the settings, then run: pixi run view-events"""
 
+from datetime import timedelta
 from pathlib import Path
 
 from beaverfiber import plot_events
 
-TIME_WINDOW_UTC = None
-EVENT_TIMEZONE = "Europe/Amsterdam"
+TEST_IDS = ["IJK-001", "IJK-027"]  # Test-IDs from the event list.
+MEASUREMENT = "1e meting"  # "1e meting" or "2e meting".
+TIME_DELTA = timedelta(hours=1, minutes=59, seconds=52.8)  # UTC = event-list time - TIME_DELTA.
 
-TEST_IDS = [
-    "IJK-002",
-    "PRF-001g1",
-    "PRF-001g2",
-    "PRF-001h1",
-    "PRF-001h2",
-    "PRF-002g1",
-    "PRF-002g2",
-    "PRF-002h1",
-    "PRF-002h2",
-    "PRF-003g1",
-    "PRF-003g2",
-    "PRF-003h1",
-    "PRF-003h2",
-]
+NOISE_SECONDS = 2  # Seconds before the measurement.
+SIGNAL_SECONDS = 2  # Seconds from the measurement onward.
 
-BEFORE_SECONDS = 2
-AFTER_SECONDS = 2
+FIBER_RANGE_M = (20, 1250)  # (start, end) in metres; None for the whole fiber.
+NORMALIZE_CHANNELS = False  # Equalize channel amplitudes in the waterfall only.
+BANDPASS_HZ = None  # e.g. (5, 200); None for no filter.
+INTERPOLATION = "kaiser"  # Waterfall smoothing, e.g. "nearest", "bilinear", "kaiser".
+CLIP_QUANTILE = 0.8  # 1.0 shows the full amplitude range; lower values boost contrast.
 
-CHANNELS = None
-CHANNEL_RANGE = None
-NORMALIZE_CHANNELS = True
-BANDPASS_HZ = None
+SHOW_PLOTS = False  # True opens each plot in a window.
+WRITE_SEGY = True  # Also save the plotted data as a .sgy file.
+OUTPUT_DIR = Path(__file__).parent / "outputs"
+ENV_FILE = Path(__file__).parent / ".env"
 
-ENV_FILE = Path(__file__).resolve().parent / ".env"
-OUTPUT_DIR = Path(__file__).resolve().parent / "outputs"
-SHOW_PLOTS = False
-
-
-if __name__ == "__main__":
-    plot_events(
-        test_ids=TEST_IDS,
-        time_window_utc=TIME_WINDOW_UTC,
-        event_timezone=EVENT_TIMEZONE,
-        before_seconds=BEFORE_SECONDS,
-        after_seconds=AFTER_SECONDS,
-        channels=CHANNELS,
-        channel_range=CHANNEL_RANGE,
-        normalize_channels=NORMALIZE_CHANNELS,
-        bandpass_hz=BANDPASS_HZ,
-        env_file=ENV_FILE,
-        output_dir=OUTPUT_DIR,
-        show=SHOW_PLOTS,
-    )
+plot_events(
+    TEST_IDS,
+    measurement=MEASUREMENT,
+    time_delta=TIME_DELTA,
+    noise_seconds=NOISE_SECONDS,
+    signal_seconds=SIGNAL_SECONDS,
+    fiber_range_m=FIBER_RANGE_M,
+    normalize_channels=NORMALIZE_CHANNELS,
+    bandpass_hz=BANDPASS_HZ,
+    interpolation=INTERPOLATION,
+    clip_quantile=CLIP_QUANTILE,
+    env_file=ENV_FILE,
+    output_dir=OUTPUT_DIR,
+    show=SHOW_PLOTS,
+    write_segy=WRITE_SEGY,
+)

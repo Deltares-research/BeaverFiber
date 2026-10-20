@@ -251,7 +251,7 @@ packages:
 - pypi: ./
   name: beaverfiber
   version: 0.1.0
-  sha256: 8a8f398869264604c53276ca32fd34844864f62bcad27bf28eed0ef52a3b60a8
+  sha256: d5e2e74852667e6f970eedd98ae8c7cc2d2fb09ef9c36ee103324513c355313b
   requires_dist:
   - h5py
   - numpy
