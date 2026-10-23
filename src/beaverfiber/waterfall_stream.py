@@ -4,7 +4,6 @@ import math
 import time
 from dataclasses import dataclass
 from datetime import datetime, timezone
-from pathlib import Path
 from queue import Empty, Full, Queue
 from threading import Event as Flag, Thread
 from zoneinfo import ZoneInfo
@@ -146,7 +145,7 @@ def stream_waterfall(
     fiber_range_m: tuple[float, float] | None, normalize_channels: bool,
     bandpass_hz: tuple[float, float] | None, interpolation: str, clip_quantile: float,
     display_seconds: float, playback_speed: float, fps: float, max_time_rows: int,
-    prefetch_blocks: int, env_file: str | Path,
+    prefetch_blocks: int,
 ) -> None:
     """Play the waterfall; Space or the button pauses, closing the window stops."""
     import matplotlib.pyplot as plt
@@ -156,7 +155,7 @@ def stream_waterfall(
     stop = to_utc(stop_datetime, timezone_name)
     if stop <= start:
         raise ValueError("STOP_DATETIME must be later than START_DATETIME")
-    recordings = scan_recordings(env_path(env_file, "data_folder"))
+    recordings = scan_recordings(env_path("data_folder"))
     dt = recordings[0].dt
     stride = max(1, math.ceil(display_seconds / dt / max_time_rows))
     row_seconds = stride * dt

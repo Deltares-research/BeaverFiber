@@ -1,7 +1,5 @@
 """Play the recordings as a scrolling waterfall movie. Edit the settings, then run: pixi run waterfall-stream"""
 
-from pathlib import Path
-
 from beaverfiber import stream_waterfall
 
 START_DATETIME = "2026-10-12 11:01:00"
@@ -20,8 +18,6 @@ FPS = 60  # Screen refreshes per second.
 MAX_TIME_ROWS = 1000  # Time rows on screen; lower is faster.
 PREFETCH_BLOCKS = 4  # Seconds of data read ahead.
 
-ENV_FILE = Path(__file__).parent / ".env"
-
 stream_waterfall(
     START_DATETIME,
     STOP_DATETIME,
@@ -36,5 +32,4 @@ stream_waterfall(
     fps=FPS,
     max_time_rows=MAX_TIME_ROWS,
     prefetch_blocks=PREFETCH_BLOCKS,
-    env_file=ENV_FILE,
 )

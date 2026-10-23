@@ -1,6 +1,7 @@
 """Plot a waterfall and noise/signal PSD around measurements from the event list."""
 
 import csv
+import io
 import math
 import re
 from dataclasses import dataclass
@@ -39,9 +40,9 @@ class Window:
     dt: float
 
 
-def env_path(env_file: str | Path, key: str) -> Path:
-    """Read a path from .env; relative paths are relative to the .env file."""
-    env_file = Path(env_file).resolve()
+def env_path(key: str) -> Path:
+    """Read a path from the project-root .env, resolving relative paths there."""
+    env_file = Path(__file__).resolve().parents[2] / ".env"
     value = dotenv_values(env_file).get(key)
     if not value:
         raise ValueError(f"Missing {key} in {env_file}")
@@ -56,30 +57,48 @@ def normalize_id(value: str) -> str:
 
 
 def read_events(
-    path: Path, test_ids: list[str], measurement: str,
+    path: Path, test_ids: list[str], measurements: list[str],
     noise_seconds: float, signal_seconds: float, time_delta: timedelta,
 ) -> list[Event]:
-    if measurement not in ("1e meting", "2e meting"):
-        raise ValueError('MEASUREMENT must be "1e meting" or "2e meting"')
-    with path.open(encoding="utf-8-sig", newline="") as stream:
-        rows = {normalize_id(row["Test-ID"]): row for row in csv.DictReader(stream)}
+    if not isinstance(measurements, list) or not measurements:
+        raise ValueError("measurements must be a non-empty list of exact CSV headers")
+    raw = path.read_bytes()
+    try:
+        text = raw.decode("utf-8-sig")
+    except UnicodeDecodeError:
+        text = raw.decode("cp1252")
+        print(f"Reading Windows-encoded CSV (cp1252): {path}")
+    with io.StringIO(text, newline="") as stream:
+        reader = csv.DictReader(stream)
+        headers = reader.fieldnames or []
+        for required in ("Test-ID", "Date"):
+            if required not in headers:
+                raise ValueError(f"Missing {required} column in {path}")
+        records = list(reader)
+    for measurement in measurements:
+        if measurement not in headers:
+            raise ValueError(f"Missing measurement column {measurement!r} in {path}; available: {headers}")
+    rows = {normalize_id(row["Test-ID"]): row for row in records}
     events = []
-    for test_id in test_ids:
-        row = rows.get(normalize_id(test_id))
-        if row is None:
-            raise ValueError(f"{test_id} is not in the event list")
-        value = row[measurement].strip()
-        try:
-            date = row["Date"].strip()
-            date_format = "%d-%m-%Y" if date[2] == "-" else "%Y-%m-%d"
-            clock = datetime.strptime(f"{date} {value}", f"{date_format} %H:%M:%S")
-        except (ValueError, IndexError) as error:
-            raise ValueError(f"No valid {measurement} time for {test_id}: {value!r}") from error
-        time = clock.replace(tzinfo=timezone.utc) - time_delta
-        events.append(Event(
-            row["Test-ID"], measurement, time,
-            time - timedelta(seconds=noise_seconds), time + timedelta(seconds=signal_seconds),
-        ))
+    for measurement in measurements:
+        for test_id in test_ids:
+            row = rows.get(normalize_id(test_id))
+            if row is None:
+                raise ValueError(f"{test_id} is not in the event list")
+            value = (row.get(measurement) or "").strip()
+            date = (row.get("Date") or "").strip()
+            if not date:
+                raise ValueError(f"No Date for {test_id} in {path}; fill in its Date column")
+            try:
+                date_format = "%d-%m-%Y" if len(date) > 2 and date[2] == "-" else "%Y-%m-%d"
+                clock = datetime.strptime(f"{date} {value}", f"{date_format} %H:%M:%S")
+            except ValueError as error:
+                raise ValueError(f"No valid date/time for {test_id}, {measurement}: {date!r} {value!r}") from error
+            time = clock.replace(tzinfo=timezone.utc) - time_delta
+            events.append(Event(
+                row["Test-ID"], measurement, time,
+                time - timedelta(seconds=noise_seconds), time + timedelta(seconds=signal_seconds),
+            ))
     return events
 
 
@@ -226,24 +245,29 @@ def plot_window(
 
 
 def plot_events(
-    test_ids: list[str], *, measurement: str, time_delta: timedelta,
+    test_ids: list[str], *, measurements: list[str], time_delta: timedelta,
     noise_seconds: float, signal_seconds: float, fiber_range_m: tuple[float, float] | None,
     normalize_channels: bool, bandpass_hz: tuple[float, float] | None,
-    interpolation: str, clip_quantile: float, env_file: str | Path, output_dir: str | Path,
+    interpolation: str, clip_quantile: float, data_folder: str | Path, event_list: str | Path,
+    output_dir: str | Path,
     show: bool, write_segy: bool,
 ) -> None:
-    """Save one waterfall/PSD figure (and optionally a SEG-Y file) per test ID."""
+    """Save a waterfall/PSD figure (and optionally SEG-Y) per test ID and measurement."""
     if not show:
         import matplotlib
 
         matplotlib.use("Agg")
-    events = read_events(env_path(env_file, "event_list"), test_ids, measurement, noise_seconds, signal_seconds, time_delta)
-    recordings = scan_recordings(env_path(env_file, "data_folder"))
+    events = read_events(
+        Path(event_list), test_ids, measurements, noise_seconds, signal_seconds, time_delta,
+    )
+    recordings = scan_recordings(Path(data_folder))
     for event in events:
         window = extract_window(recordings, event.start.timestamp(), event.end.timestamp(), fiber_range_m)
-        print(f"{event.test_id} | {measurement}: {event.start:%H:%M:%S.%f} to {event.end:%H:%M:%S.%f} UTC, "
+        print(f"{event.test_id} | {event.measurement}: {event.start:%H:%M:%S.%f} to {event.end:%H:%M:%S.%f} UTC, "
               f"fiber {window.distances[0]:.1f}-{window.distances[-1]:.1f} m ({len(window.channels)} channels)")
-        name = f"{re.sub(r'[^A-Za-z0-9_-]', '_', event.test_id)}_{measurement.replace(' ', '_')}_waterfall_psd.png"
+        test_name = re.sub(r"[^A-Za-z0-9_-]", "_", event.test_id)
+        measurement_name = re.sub(r"[^A-Za-z0-9_-]", "_", event.measurement)
+        name = f"{test_name}_{measurement_name}_waterfall_psd.png"
         plot_window(
             event, window, Path(output_dir) / name, show=show, normalize_channels=normalize_channels,
             bandpass_hz=bandpass_hz, interpolation=interpolation, clip_quantile=clip_quantile,

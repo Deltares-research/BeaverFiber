@@ -29,19 +29,34 @@ included) and the path to your event list:
 
 ```dotenv
 data_folder = "C:/DAS/recordings"
+data_folder_ijken = "C:/DAS/recordings/ijken"
+data_folder_droog = "C:/DAS/recordings/droog"
 event_list = "C:/DAS/events.csv"
+event_list_dry = "C:/DAS/events_dry.csv"
 ```
 
-The event list is a CSV file with at least these columns:
+`view_events.py` reads `data_folder_ijken` and `event_list` from `.env` and
+passes those paths to `plot_events`. To use the dry measurements, change the
+keys in its `DATA_FOLDER` and `EVENT_LIST` settings to `data_folder_droog` and
+`event_list_dry`. The shared `env_path("key")` helper always reads `.env` from
+the project root, independently of the current working directory. Relative
+paths are resolved relative to `.env`; missing or empty values raise an error.
+`waterfall_stream.py` uses `data_folder`.
+
+The event list is a CSV file with `Test-ID`, `Date`, and measurement
+time columns selected by their exact headers, regardless of column position. For example:
 
 ```csv
-Test-ID,Date,1e meting,2e meting
-IJK-002,12-10-2026,11:06:15,11:06:45
+Test-ID,Geplande Tijd (NTP),1e meting,2e meting,Date
+IJK-002,10:32:00,11:06:15,11:06:45,12-10-2026
 ```
 
-- `Date`: `DD-MM-YYYY` or `YYYY-MM-DD`.
-- `1e meting` / `2e meting`: measurement time as `HH:MM:SS`. Leave a time blank
-  if it is unknown.
+- `Date`: required for each selected test, as `DD-MM-YYYY` or `YYYY-MM-DD`.
+- Measurement headers may have any name. Only the headers listed in
+  `MEASUREMENTS` are used; no columns are automatically selected.
+  Times must be `HH:MM:SS`; a missing/invalid time raises an error.
+- UTF-8 (with or without BOM) and Windows cp1252 CSV files are supported
+  automatically. The reader reports when it uses cp1252.
 
 ## 3. Plot events
 
@@ -54,7 +69,7 @@ pixi run view-events
 | Setting | Meaning |
 |---|---|
 | `TEST_IDS` | Tests to plot, e.g. `["IJK-001", "IJK-027"]`. |
-| `MEASUREMENT` | `"1e meting"` or `"2e meting"`. |
+| `MEASUREMENTS` | Non-empty list of exact CSV headers, e.g. `["1e meting", "2e meting"]`. |
 | `TIME_DELTA` | Clock difference between the event list and the recordings (UTC): UTC = event-list time − `TIME_DELTA`. |
 | `NOISE_SECONDS` | Seconds before the measurement (the noise window). |
 | `SIGNAL_SECONDS` | Seconds from the measurement onward (the signal window). |
