@@ -20,16 +20,16 @@ No denoising was applied to the output files during this analysis.
 
 Using the ten seconds before the third-step timestamp:
 
-| Diagnostic | Observation |
-|---|---|
-| Sampling frequency | 625 Hz |
-| Channel spacing, from the distance array | Approximately 2.04 m |
-| Gauge length in the recording header | Approximately 4.09 m |
-| Median channel standard deviation, 420-480 m | Approximately 1,998 counts |
-| Same statistic, 620-780 m | Approximately 23.8 counts |
-| Background amplitude ratio between those regions | Approximately **84 times**, or **38.5 dB** |
-| Background energy within 270-580 m | Approximately **97%** of the plotted array's squared counts |
-| Temporal PSD in the noisy region | Approximately flat over 10-200 Hz |
+| Diagnostic                                       | Observation                                                       |
+| ------------------------------------------------ | ----------------------------------------------------------------- |
+| Sampling frequency                               | 625 Hz                                                            |
+| Channel spacing, from the distance array         | Approximately 2.04 m                                              |
+| Gauge length in the recording header             | Approximately 4.09 m                                              |
+| Median channel standard deviation, 420-480 m     | Approximately 1,998 counts                                        |
+| Same statistic, 620-780 m                        | Approximately 23.8 counts                                         |
+| Background amplitude ratio between those regions | Approximately **84 times**, or **38.5 dB**            |
+| Background energy within 270-580 m               | Approximately **97%** of the plotted array's squared counts |
+| Temporal PSD in the noisy region                 | Approximately flat over 10-200 Hz                                 |
 
 These are background comparisons, **not a calibrated SNR measurement**:
 different cable sections can have different strain responses and coupling,
@@ -39,13 +39,13 @@ and the pre-event window is not guaranteed to be completely signal-free.
 
 Within 420-480 m, the median correlations between channels were approximately:
 
-| Channel separation | Distance separation | Correlation |
-|---|---:|---:|
-| 1 | 2.0 m | +0.31 |
-| 2 | 4.1 m | -0.30 |
-| 3 | 6.1 m | -0.16 |
-| 4 | 8.2 m | -0.03 |
-| 6 | 12.3 m | Approximately zero |
+| Channel separation | Distance separation |        Correlation |
+| ------------------ | ------------------: | -----------------: |
+| 1                  |               2.0 m |              +0.31 |
+| 2                  |               4.1 m |              -0.30 |
+| 3                  |               6.1 m |              -0.16 |
+| 4                  |               8.2 m |              -0.03 |
+| 6                  |              12.3 m | Approximately zero |
 
 A similar pattern occurs in another event window.
 
@@ -82,16 +82,16 @@ The spatial dimension offers the additional information needed.
 
 ## 2. The options to consider
 
-| Method | What distinguishes signal from noise? | Suitability here |
-|---|---|---|
-| Channel normalization | Nothing: it changes display scaling | Useful diagnostic, **not denoising** |
-| Local, slope-aligned stacking / f-k filtering | Propagating wavefronts are spatially coherent | **First method to benchmark** |
-| Covariance-aware spatial filtering | Measured noise covariance plus an assumed wavefield | **Especially relevant to the measured noise** |
-| Local f-x prediction / SSA / MSSA | Wavefields have predictable spatial structure | **Strong alternative** |
-| Curvelet / seislet denoising | Wavefronts are sparse in a directional representation | Good for curved or varying arrivals |
-| Guarded self-supervised neural denoising | Signal is predictable beyond the noise-correlation range | Promising, but requires careful mask design |
-| Twin-fibre Noise2Noise | Two measurements share signal but have independent noise | Excellent if suitable paired recordings exist |
-| Acquisition-side mitigation | Prevent the noise rather than reconstruct through it | Important if the problem persists at fixed locations |
+| Method                                        | What distinguishes signal from noise?                    | Suitability here                                     |
+| --------------------------------------------- | -------------------------------------------------------- | ---------------------------------------------------- |
+| Channel normalization                         | Nothing: it changes display scaling                      | Useful diagnostic, **not denoising**           |
+| Local, slope-aligned stacking / f-k filtering | Propagating wavefronts are spatially coherent            | **First method to benchmark**                  |
+| Covariance-aware spatial filtering            | Measured noise covariance plus an assumed wavefield      | **Especially relevant to the measured noise**  |
+| Local f-x prediction / SSA / MSSA             | Wavefields have predictable spatial structure            | **Strong alternative**                         |
+| Curvelet / seislet denoising                  | Wavefronts are sparse in a directional representation    | Good for curved or varying arrivals                  |
+| Guarded self-supervised neural denoising      | Signal is predictable beyond the noise-correlation range | Promising, but requires careful mask design          |
+| Twin-fibre Noise2Noise                        | Two measurements share signal but have independent noise | Excellent if suitable paired recordings exist        |
+| Acquisition-side mitigation                   | Prevent the noise rather than reconstruct through it     | Important if the problem persists at fixed locations |
 
 ### Option A: Local, slope-aligned stacking and f-k filtering
 
@@ -115,11 +115,11 @@ structure-oriented smoothing.
 Simple, **unshifted** spatial averaging was tested on the pre-event noisy
 interval:
 
-| Averaging aperture | Background standard-deviation reduction |
-|---|---:|
-| 3 channels, spanning approximately 4.1 m | 4.7 dB |
-| 5 channels, spanning approximately 8.2 m | 8.0 dB |
-| 9 channels, spanning approximately 16.3 m | 13.9 dB |
+| Averaging aperture                        | Background standard-deviation reduction |
+| ----------------------------------------- | --------------------------------------: |
+| 3 channels, spanning approximately 4.1 m  |                                  4.7 dB |
+| 5 channels, spanning approximately 8.2 m  |                                  8.0 dB |
+| 9 channels, spanning approximately 16.3 m |                                 13.9 dB |
 
 Those are real background reductions, **not demonstrated SNR improvements**.
 

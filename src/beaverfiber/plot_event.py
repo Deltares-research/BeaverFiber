@@ -11,7 +11,7 @@ from pathlib import Path
 import h5py
 import numpy as np
 from dotenv import dotenv_values
-from scipy.signal import butter, sosfiltfilt, welch
+from scipy.signal import butter, hilbert, sosfiltfilt, welch
 
 
 @dataclass
@@ -194,12 +194,14 @@ def waterfall_image(axes, distances: np.ndarray, values: np.ndarray, time_bounds
 def plot_window(
     event: Event, window: Window, output: Path, *, show: bool, normalize_channels: bool,
     bandpass_hz: tuple[float, float] | None, interpolation: str, clip_quantile: float,
-    write_segy: bool,
+    write_segy: bool, envelope: bool = False,
 ) -> None:
     import matplotlib.dates as mdates
     import matplotlib.pyplot as plt
 
     counts = window.counts if bandpass_hz is None else bandpass(window.counts, window.dt, bandpass_hz)
+    if envelope:
+        counts = np.abs(hilbert(counts, axis=0))
     if write_segy:
         from .segy_export import write_segy as write
 
@@ -213,7 +215,7 @@ def plot_window(
     times = [datetime.fromtimestamp(t, timezone.utc) for t in (window.timestamps[0], window.timestamps[-1] + window.dt)]
     image = waterfall_image(
         waterfall, window.distances, display, mdates.date2num(times), interpolation,
-        cmap="RdBu_r", vmin=-limit, vmax=limit,
+        cmap="viridis" if envelope else "RdBu_r", vmin=0 if envelope else -limit, vmax=limit,
     )
     waterfall.invert_yaxis()
     waterfall.yaxis.set_major_formatter(mdates.DateFormatter("%H:%M:%S", tz=timezone.utc))
@@ -221,12 +223,15 @@ def plot_window(
                       label=f"{event.measurement}: {event.time:%H:%M:%S} UTC")
     waterfall.legend(loc="upper right")
     filtered = "" if bandpass_hz is None else f" | bandpass {bandpass_hz[0]:g}-{bandpass_hz[1]:g} Hz"
+    if envelope:
+        filtered += " | envelope"
     waterfall.set(
         xlabel="Fiber distance (m)", ylabel="Time (UTC)",
         title=f"{event.test_id} | {event.measurement} | {event.time:%Y-%m-%d}{filtered}",
     )
     label = "Normalized counts" if normalize_channels else "Counts"
-    figure.colorbar(image, ax=waterfall, label=f"{label} (clip quantile {clip_quantile:g})", extend="both")
+    figure.colorbar(image, ax=waterfall, label=f"{label} (clip quantile {clip_quantile:g})",
+                    extend="max" if envelope else "both")
 
     split = int(np.searchsorted(window.timestamps, event.time.timestamp()))
     for name, part, color in (("Noise", counts[:split], "#737373"), ("Signal", counts[split:], "#16645c")):
@@ -250,7 +255,7 @@ def plot_events(
     normalize_channels: bool, bandpass_hz: tuple[float, float] | None,
     interpolation: str, clip_quantile: float, data_folder: str | Path, event_list: str | Path,
     output_dir: str | Path,
-    show: bool, write_segy: bool,
+    show: bool, write_segy: bool, envelope: bool = False,
 ) -> None:
     """Save a waterfall/PSD figure (and optionally SEG-Y) per test ID and measurement."""
     if not show:
@@ -271,5 +276,5 @@ def plot_events(
         plot_window(
             event, window, Path(output_dir) / name, show=show, normalize_channels=normalize_channels,
             bandpass_hz=bandpass_hz, interpolation=interpolation, clip_quantile=clip_quantile,
-            write_segy=write_segy,
+            write_segy=write_segy, envelope=envelope,
         )

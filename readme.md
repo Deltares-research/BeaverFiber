@@ -35,12 +35,12 @@ event_list = "C:/DAS/events.csv"
 event_list_dry = "C:/DAS/events_dry.csv"
 ```
 
-`view_events.py` reads `data_folder_ijken` and `event_list` from `.env` and
-passes those paths to `plot_events`. To use the dry measurements, change the
-keys in its `DATA_FOLDER` and `EVENT_LIST` settings to `data_folder_droog` and
-`event_list_dry`. The shared `env_path("key")` helper always reads `.env` from
-the project root, independently of the current working directory. Relative
-paths are resolved relative to `.env`; missing or empty values raise an error.
+`view_events.py` reads the keys selected in its `DATA_FOLDER` and `EVENT_LIST`
+settings from `.env` and passes those paths to `plot_events`. Change these keys
+to select a different data folder and event list. The shared `env_path("key")`
+helper always reads `.env` from the project root, independently of the current
+working directory. Relative paths are resolved relative to `.env`; missing or
+empty values raise an error.
 `waterfall_stream.py` uses `data_folder`.
 
 The event list is a CSV file with `Test-ID`, `Date`, and measurement
@@ -76,22 +76,25 @@ pixi run view-events
 | `FIBER_RANGE_M` | Part of the fiber to show, in metres, e.g. `(20, 1250)`. `None` shows the whole fiber. |
 | `NORMALIZE_CHANNELS` | `True` gives every channel a similar color strength in the waterfall. |
 | `BANDPASS_HZ` | Frequency filter, e.g. `(5, 200)`. `None` means no filter. |
+| `ENVELOPE` | `True` uses the Hilbert amplitude envelope for each channel, after the bandpass filter if set. |
 | `INTERPOLATION` | Waterfall smoothing: `"nearest"` (none), `"bilinear"`, `"kaiser"`, ... |
 | `CLIP_QUANTILE` | Color contrast. `1.0` shows the full amplitude range; `0.99` clips the strongest 1 %, making weak signals easier to see. |
 | `SHOW_PLOTS` | `True` opens every plot in a window. |
 | `WRITE_SEGY` | `True` also saves a `.sgy` file to open in seismic software. |
 
-Results are saved in `outputs/`, for example
-`IJK-001_1e_meting_waterfall_psd.png` (and `.sgy`).
+Results are saved in a subfolder of `outputs/` named after the selected data
+folder. For example, recordings in `nat_20261028` produce files such as
+`outputs/nat_20261028/IJK-001_1e_meting_waterfall_psd.png` (and `.sgy`).
 
 The waterfall shows fiber distance horizontally and time (UTC) vertically, with
 a dashed line at the measurement. The PSD panel compares the average spectrum of
 the noise window with that of the signal window.
 
-The SEG-Y file contains the same samples as the plot (with the bandpass filter,
-if set), one trace per channel. The fiber distance is stored as receiver X
-(in millimetres, scalar −1000) and the exact start and measurement times are in
-the text header.
+The PSD and SEG-Y file use the same processed samples as the waterfall: the
+bandpass filter, followed by the envelope, when enabled. Normalization affects
+only the waterfall display. The SEG-Y file contains one trace per channel. The
+fiber distance is stored as receiver X (in millimetres, scalar −1000) and the
+exact start and measurement times are in the text header.
 
 ## 4. Play a waterfall movie
 
