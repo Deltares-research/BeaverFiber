@@ -1,0 +1,53 @@
+Test-ID,Geplande Tijd (NTP),"1e stap, houten pootjes","2e stap, houten pootjes intensief","3e stap, hark","4e stap, hark intensief","5e stap, houten pootjes intensief / dieper dan zode",Testdoel (Kabel),Raai,Locatie / Raai-punt,offset,RiCo,RD Coördinaten X,RD Coördinaten Y,Actie & Hulpmiddel,Achtergrondruis,Veldconditie,Uitvoeringsspecificatie,Status / Logboek,Opmerkingen & Veldafwijkingen,Date
+TST-001,08:30:00,11:18:00,11:18:30,11:19:00,11:19:30,11:20:00,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 1 (Dijkkruin),,,202900,494110,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-002,08:40:00,11:27:00,11:27:30,11:28:00,11:28:30,11:29:00,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 1 (Dijkkruin),,,202900,494110,Hark,Met ruis,Droog,,Gepland,Peugeot ,14-10-2026
+TST-003,08:50:00,11:32:00,11:32:30,11:33:00,11:33:30,11:34:00,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 2 (Dijktalud),,,202900,494112,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-004,09:00:00,11:36:30,11:37:00,11:37:30,11:38:00,11:38:30,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 2 (Dijktalud),,,202900,494112,Hark,Met ruis,Droog,,Gepland,,14-10-2026
+TST-005,09:10:00,,,,,,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 2 (Dijktalud),,,202900,494112,Spikes / overig,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-006,09:20:00,,,,,,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 2 (Dijktalud),,,202900,494112,Lopen,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-007,09:30:00,11:44:00,11:44:30,11:45:00,11:45:30,11:46:00,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 3 (Dijkteen - snijlijn ploegspoor),,,202900,494115,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-007-2,09:30:00,11:50:00,11:50:30,11:51:00,11:51:30,11:52:00,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 3 (Dijkteen - snijlijn ploegspoor),,,202900,494115,Hark,Met ruis,Droog,,Gepland,,14-10-2026
+TST-008,09:40:00,11:59:00,11:59:30,12:00:00,12:00:30,12:01:00,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 4 (Midden polder klei en zand),,,202900,494120,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-009,09:50:00,12:12:00,12:12:30,12:13:00,12:13:30,12:14:00,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 5 (Midden polder klei en zand),,,202900,494125,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-010,10:00:00,,,,,,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 5 (Midden polder klei en zand),,,202900,494125,Spikes / overig,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-011,10:10:00,,,,,,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 5 (Midden polder klei en zand),,,202900,494125,Lopen,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-012,10:20:00,12:17:00,12:17:30,12:18:00,12:18:30,12:19:00,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 6 (Midden polder klei en zand),,,202900,494130,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-013,10:30:00,12:23:00,12:23:30,12:24:00,12:24:30,12:25:00,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 7 (Zandtalud bij heg),,,202900,494140,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-014,11:00:00,13:42:00,13;42:30,13:43:00,13:43:30,13:44:00,Kabel 2 (Loze kabel & mantelbuis),Raai 1,Raai-punt 2 (Dijktalud),,,202910,494115,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-015,11:10:00,13:46:00,13:46:30,13:47:00,13:47:30,13:48:00,Kabel 2 (Loze kabel & mantelbuis),Raai 1,Raai-punt 3 (Dijkteen - snijlijn ploegspoor),,,202910,494120,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-016,11:20:00,13:51:00,13:51:30,13:52:00,13:52:30,13:53:00,Kabel 2 (Loze kabel & mantelbuis),Raai 1,Raai-punt 5 (Midden polder klei en zand),,,202910,494133,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-017,11:30:00,13:55:00,13:55:30,13:56:00,13:56:30,13:57:00,Kabel 2 (Loze kabel & mantelbuis),Raai 1,Raai-punt 5 (Midden polder klei en zand),,,202910,494133,Hark,Met ruis,Droog,,Gepland,,14-10-2026
+TST-018,11:40:00,,,,,,Kabel 2 (Loze kabel & mantelbuis),Raai 1,Raai-punt 5 (Midden polder klei en zand),,,202910,494133,Spikes / overig,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-019,11:50:00,,,,,,Kabel 2 (Loze kabel & mantelbuis),Raai 1,Raai-punt 5 (Midden polder klei en zand),,,202910,494133,Lopen,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-020,12:00:00,13:59:30,14:00:00,14:00:30,14:01:00,14:01:30,Kabel 2 (Loze kabel & mantelbuis),Raai 1,Raai-punt 7 (Zandtalud bij heg),,,202910,494144,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-021,12:10:00,14:45:00,14:45:30,14:46:00,14:46:30,14:47:00,Kabel 3 (Losse kabel op maaiveld),Raai 1,Raai-punt 1 (Dijkkruin),3,0.33,202903,494111,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-022,12:20:00,14:51:00,14:51:30,14:52:00,14:52:30,14:53:00,Kabel 3 (Losse kabel op maaiveld),Raai 1,Raai-punt 2 (Dijktalud),3,0.33,202903,494113,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-023,12:30:00,14:55:00,14:55:30,14:56:00,14:56:30,14:57:00,Kabel 3 (Losse kabel op maaiveld),Raai 1,Raai-punt 2 (Dijktalud),3,0.33,202903,494113,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-023n,12:30:00,15:01:00,15:01:30,15:02:00,15:02:30,15:03:00,Kabel 3 (Losse kabel op maaiveld),Raai 1,Raai-punt 2 (Dijktalud),3,0.33,202903,494113,Hark,Met ruis,Droog,,Gepland,,14-10-2026
+TST-024,12:40:00,15:07:00,15:07:30,15:08:00,15:08:30,15:09:00,Kabel 3 (Losse kabel op maaiveld),Raai 1,Raai-punt 3 (Dijkteen - snijlijn ploegspoor),3,0.33,202903,494116,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-025,12:50:00,15:13:00,15:13:30,15:14:00,15:14:30,15:15:00,Kabel 3 (Losse kabel op maaiveld),Raai 1,Raai-punt 4 (Midden polder klei en zand),3,0.33,202903,494121,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-001d,08:30:00,16:05:00,16:05:30,16:06:00,16:06:30,16:07:00,Kabel 1 (Daisy chain gekoppeld),Raai 2 (Duplo),Raai-punt 1 (Dijkkruin),20,0.33,202920,494116.67,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-002d,08:30:00,16:09:00,16:09:30,16:10:00,16:10:30,16:11:00,Kabel 1 (Daisy chain gekoppeld),Raai 2 (Duplo),Raai-punt 1 (Dijkkruin),20,0.33,202920,494116.67,Hark,Met ruis,Droog,,Gepland,,14-10-2026
+TST-003d,08:40:00,16:13:00,16:13:30,16:14:00,16:14:30,16:15:00,Kabel 1 (Daisy chain gekoppeld),Raai 2 (Duplo),Raai-punt 2 (Dijktalud),20,0.33,202920,494118.67,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-004d,08:40:00,16:18:00,16:18:30,16:19:00,16:19:30,16:20:00,Kabel 1 (Daisy chain gekoppeld),Raai 2 (Duplo),Raai-punt 2 (Dijktalud),20,0.33,202920,494118.67,Hark,Met ruis,Droog,,Gepland,,14-10-2026
+TST-005d,08:20:00,,,,,,Kabel 1 (Daisy chain gekoppeld),Raai 2 (Duplo),Raai-punt 2 (Dijktalud),20,0.33,202920,494118.67,Spikes / overig,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-006d,08:30:00,,,,,,Kabel 1 (Daisy chain gekoppeld),Raai 2 (Duplo),Raai-punt 2 (Dijktalud),20,0.33,202920,494118.67,Lopen,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-007d,08:40:00,16:22:00,16:22:30,16:23:00,16:23:30,16:24:00,Kabel 1 (Daisy chain gekoppeld),Raai 2 (Duplo),Raai-punt 3 (Dijkteen - snijlijn ploegspoor),20,0.33,202920,494121.67,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-008d,08:50:00,,,,,,Kabel 1 (Daisy chain gekoppeld),Raai 2 (Duplo),Raai-punt 4 (Midden polder klei en zand),20,0.33,202920,494126.67,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-009d,09:10:00,16:27:00,16:27:30,16:28:00,16:28:30,16:29:00,Kabel 1 (Daisy chain gekoppeld),Raai 2 (Duplo),Raai-punt 5 (Midden polder klei en zand),20,0.33,202920,494131.67,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-010d,09:20:00,,,,,,Kabel 1 (Daisy chain gekoppeld),Raai 2 (Duplo),Raai-punt 5 (Midden polder klei en zand),20,0.33,202920,494131.67,Spikes / overig,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-011d,09:30:00,,,,,,Kabel 1 (Daisy chain gekoppeld),Raai 2 (Duplo),Raai-punt 5 (Midden polder klei en zand),20,0.33,202920,494131.67,Lopen,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-012d,09:40:00,,,,,,Kabel 1 (Daisy chain gekoppeld),Raai 2 (Duplo),Raai-punt 6 (Midden polder klei en zand),20,0.33,202920,494136.67,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-013d,09:40:00,16:34:00,16:34:30,16:35:00,16:35:30,16:36:00,Kabel 1 (Daisy chain gekoppeld),Raai 2 (Duplo),Raai-punt 7 (Zandtalud bij heg),20,0.33,202920,494146.67,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-014d,11:40:00,14:06:00,14:06:30,14:07:00,14:07:30,14:08:00,Kabel 2 (Loze kabel & mantelbuis),Raai 2 (Duplo),Raai-punt 2 (Dijktalud),6,0.33,202916,494117,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-015d,11:50:00,14:11:00,14:11:30,14:12:00,14:12:30,14:13:00,Kabel 2 (Loze kabel & mantelbuis),Raai 2 (Duplo),Raai-punt 3 (Dijkteen - snijlijn ploegspoor),6,0.33,202916,494122,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-016d,12:00:00,14:16:00,14:16:30,14:17:00,14:17:30,14:18:00,Kabel 2 (Loze kabel & mantelbuis),Raai 2 (Duplo),Raai-punt 5 (Midden polder klei en zand),6,0.33,202916,494135,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-017d,12:10:00,,,,,,Kabel 2 (Loze kabel & mantelbuis),Raai 2 (Duplo),Raai-punt 5 (Midden polder klei en zand),6,0.33,202916,494135,Hark,Met ruis,Droog,,Gepland,,14-10-2026
+TST-018d,12:20:00,,,,,,Kabel 2 (Loze kabel & mantelbuis),Raai 2 (Duplo),Raai-punt 5 (Midden polder klei en zand),6,0.33,202916,494135,Spikes / overig,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-019d,12:30:00,,,,,,Kabel 2 (Loze kabel & mantelbuis),Raai 2 (Duplo),Raai-punt 5 (Midden polder klei en zand),6,0.33,202916,494135,Lopen,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-020d,12:40:00,,,,,,Kabel 2 (Loze kabel & mantelbuis),Raai 2 (Duplo),Raai-punt 7 (Zandtalud bij heg),6,0.33,202916,494146,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-021d,14:00:00,15:18:00,15:18:30,15:19:00,15:19:30,15:20:00,Kabel 3 (Losse kabel op maaiveld),Raai 2 (Duplo),Raai-punt 1 (Dijkkruin),6,0.33,202926,494118.67,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-022d,14:10:00,15:23:00,15:23:30,15:24:00,15:24:30,15:25:00,Kabel 3 (Losse kabel op maaiveld),Raai 2 (Duplo),Raai-punt 2 (Dijktalud),6,0.33,202926,494120.67,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-023d,14:20:00,15:28:00,15:28:30,15:29:00,15:29:30,15:30:00,Kabel 3 (Losse kabel op maaiveld),Raai 2 (Duplo),Raai-punt 2 (Dijktalud),6,0.33,202926,494120.67,Hark,Met ruis,Droog,,Gepland,,14-10-2026
+TST-024d,14:30:00,,,,,,Kabel 3 (Losse kabel op maaiveld),Raai 2 (Duplo),Raai-punt 3 (Dijkteen - snijlijn ploegspoor),6,0.33,202926,494123.67,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026
+TST-025d,14:40:00,,,,,,Kabel 3 (Losse kabel op maaiveld),Raai 2 (Duplo),Raai-punt 4 (Midden polder klei en zand),6,0.33,202926,494128.67,Hark,Zonder ruis,Droog,,Gepland,,14-10-2026

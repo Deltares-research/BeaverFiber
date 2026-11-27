@@ -20,6 +20,7 @@ beaverfiber = { path = ".", editable = true }
 [tool.pixi.tasks]
 view-events = "python view_events.py"
 waterfall-stream = "python waterfall_stream.py"
+event-movie = "python event_movie.py"
 
 [tool.pixi.dependencies]
 numpy = ">=2.5.4,<3"
@@ -27,3 +28,5 @@ scipy = ">=1.18.1,<2"
 matplotlib = ">=3.11.2,<4"
 python-dotenv = ">=1.2.4,<2"
 h5py = ">=3.16.0,<4"
+ffmpeg = "*"
+contextily = "*"

@@ -162,6 +162,12 @@ def bandpass(counts: np.ndarray, dt: float, bandpass_hz: tuple[float, float]) ->
     return sosfiltfilt(sections, counts.astype(np.float64), axis=0)
 
 
+def process_counts(window: Window, bandpass_hz: tuple[float, float] | None, envelope: bool) -> np.ndarray:
+    """Optional bandpass, then optional Hilbert envelope; shared by all scripts."""
+    counts = window.counts if bandpass_hz is None else bandpass(window.counts, window.dt, bandpass_hz)
+    return np.abs(hilbert(counts, axis=0)) if envelope else counts
+
+
 def mean_psd(counts: np.ndarray, dt: float) -> tuple[np.ndarray, np.ndarray]:
     """Welch PSD averaged over channels."""
     if len(counts) < 2:
@@ -199,9 +205,7 @@ def plot_window(
     import matplotlib.dates as mdates
     import matplotlib.pyplot as plt
 
-    counts = window.counts if bandpass_hz is None else bandpass(window.counts, window.dt, bandpass_hz)
-    if envelope:
-        counts = np.abs(hilbert(counts, axis=0))
+    counts = process_counts(window, bandpass_hz, envelope)
     if write_segy:
         from .segy_export import write_segy as write
 

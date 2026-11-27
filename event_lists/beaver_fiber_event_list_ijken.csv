@@ -1,0 +1,68 @@
+﻿Test-ID,Geplande Tijd (NTP),1e meting,2e meting,Testdoel (Kabel),Raai,Locatie / Raai-punt,RD Coördinaten X,RD Coördinaten Y,Actie & Hulpmiddel,Veldconditie,Date
+IJK-001,10:30:00,11:05:00,11:05:30,Kabel 1 (lang): IJken RD locatie,Raai 1,Raai-punt 1 (Dijkkruin trace 1 vezel 1),202895.6966,494108.236,Waterhammer,Droog,12-10-2026
+IJK-002,10:32:00,11:06:15,11:06:45,Kabel 1 (lang): IJken RD locatie,Raai 1,Raai-punt 2 (Dijkkruin  trace 1 vezel 2),202888.7294,494106.5185,Waterhammer,Droog,12-10-2026
+IJK-003,10:34:00,11:07:30,11:07:45,Kabel 1 (lang): IJken RD locatie,Raai 1,Raai-punt 3 (Dijktalud trace 2 vezel 3),202894.8538,494109.4977,Waterhammer,Droog,12-10-2026
+IJK-004,10:36:00,11:08:10,11:08:30,Kabel 1 (lang): IJken RD locatie,Raai 1,Raai-punt 4 (Dijktalud  trace 2 vezel 4),202894.6565,494110.1779,Waterhammer,Droog,12-10-2026
+IJK-005,10:38:00,11:09:00,11:09:15,Kabel 1 (lang): IJken RD locatie,Raai 1,Raai-punt 5 (Dijkteen trace 3 vezel 5),202893.3525,494112.5699,Waterhammer,Droog,12-10-2026
+IJK-006,10:40:00,11:09:40,11:09:55,Kabel 1 (lang): IJken RD locatie,Raai 1,Raai-punt 6 (Dijkteen  trace 3 vezel 6),202893.5796,494113.1901,Waterhammer,Droog,12-10-2026
+IJK-007,10:42:00,11:10:39,11:11:00,Kabel 1 (lang): IJken RD locatie,Raai 1,Raai-punt 7 (polder trace 4 vezel 7/9),202888.2734,494117.6307,Waterhammer,Droog,12-10-2026
+IJK-008,10:44:00,11:13:30,11:13:45,Kabel 1 (lang): IJken RD locatie,Raai 1,Raai-punt 8 (polder  trace 4 vezel 8),202888.072,494118.0691,Waterhammer,Droog,12-10-2026
+IJK-009,10:46:00,11:14:05,11:14:25,Kabel 1 (lang): IJken RD locatie,Raai 1,Raai-punt 9 (polder trace 4 vezel 10),202887.8309,494118.5056,Waterhammer,Droog,12-10-2026
+IJK-010,10:48:00,11:15:20,11:15:45,Kabel 1 (lang): IJken RD locatie,Raai 1,Raai-punt 10 (polder  trace 4 vezel 17),202887.2579,494119.7604,Waterhammer,Droog,12-10-2026
+IJK-011,10:50:00,11:16:30,11:16:50,Kabel 2 (kort): IJken RD locatie,Raai 1,Raai-punt 11 (polder trace 4a vezel 4a),202887.3916,494123.263,Waterhammer,Droog,12-10-2026
+IJK-012,10:52:00,11:17:30,11:18:20,Kabel 1 (lang): IJken RD locatie,Raai 1,Raai-punt 12 (polder  trace 5 vezel 11),202884.1338,494125.785,Waterhammer,Droog,12-10-2026
+IJK-013,10:54:00,11:18:55,11:19:15,Kabel 1 (lang): IJken RD locatie,Raai 1,Raai-punt 13 (polder trace 5 vezel 12),202883.9002,494126.4114,Waterhammer,Droog,12-10-2026
+IJK-014,10:56:00,11:20:10,11:20:30,Kabel 1 (lang): IJken RD locatie,Raai 2,Raai-punt 1 (Dijkkruin trace 1 vezel 1),202915.7793,494115.3727,Waterhammer,Droog,12-10-2026
+IJK-015,10:58:00,11:21:00,11:21:20,Kabel 1 (lang): IJken RD locatie,Raai 2,Raai-punt 2 (Dijkkruin  trace 1 vezel 2),202916.5358,494116.3102,Waterhammer,Droog,12-10-2026
+IJK-016,11:00:00,11:22:45,11:23:05,Kabel 1 (lang): IJken RD locatie,Raai 2,Raai-punt 3 (Dijktalud trace 2 vezel 3),202916.1627,494117.2975,Waterhammer,Droog,12-10-2026
+IJK-017,11:02:00,11:25:30,11:25:50,Kabel 1 (lang): IJken RD locatie,Raai 2,Raai-punt 4 (Dijktalud  trace 2 vezel 4),202915.84,494117.8541,Waterhammer,Droog,12-10-2026
+IJK-018,11:04:00,11:26:30,11:27:40,Kabel 1 (lang): IJken RD locatie,Raai 2,Raai-punt 5 (Dijkteen trace 3 vezel 5),202915.5149,494121.3368,Waterhammer,Droog,12-10-2026
+IJK-019,11:06:00,11:28:15,11:29:05,Kabel 1 (lang): IJken RD locatie,Raai 2,Raai-punt 6 (Dijkteen  trace 3 vezel 6),202914.3084,494121.4258,Waterhammer,Droog,12-10-2026
+IJK-020,11:08:00,11:29:40,11:30:00,Kabel 1 (lang): IJken RD locatie,Raai 2,Raai-punt 7 (polder trace 4 vezel 7/9),202913.1303,494128.2511,Waterhammer,Droog,12-10-2026
+IJK-021,11:10:00,11:30:30,11:30:50,Kabel 1 (lang): IJken RD locatie,Raai 2,Raai-punt 8 (polder  trace 4 vezel 8),202912.9251,494128.7919,Waterhammer,Droog,12-10-2026
+IJK-022,11:12:00,11:31:20,11:31:45,Kabel 1 (lang): IJken RD locatie,Raai 2,Raai-punt 9 (polder trace 4 vezel 10),202912.8559,494129.1344,Waterhammer,Droog,12-10-2026
+IJK-023,11:14:00,11:32:25,11:32:45,Kabel 1 (lang): IJken RD locatie,Raai 2,Raai-punt 10 (polder  trace 4 vezel 17),202912.406,494130.4655,Waterhammer,Droog,12-10-2026
+IJK-024,11:16:00,11:33:20,11:33:40,Kabel 2 (kort): IJken RD locatie,Raai 2,Raai-punt 11 (polder trace 4a vezel 4a),202911.5594,494133.3912,Waterhammer,Droog,12-10-2026
+IJK-025,11:18:00,11:34:15,11:34:35,Kabel 1 (lang): IJken RD locatie,Raai 2,Raai-punt 12 (polder  trace 5 vezel 11),202909.0479,494136.8353,Waterhammer,Droog,12-10-2026
+IJK-026,11:20:00,11:35:10,11:35:40,Kabel 1 (lang): IJken RD locatie,Raai 2,Raai-punt 13 (polder trace 5 vezel 12),202908.7338,494137.4509,Waterhammer,Droog,12-10-2026
+IJK-027,11:22:00,11:36:35,11:36:55,Kabel 1 (lang): IJken RD locatie,Raai 3,Raai-punt 1 (Dijkkruin trace 1 vezel 1),202932.0512,494120.6666,Waterhammer,Droog,12-10-2026
+IJK-028,11:24:00,nan,nan,Kabel 1 (lang): IJken RD locatie,Raai 3,Raai-punt 2 (Dijkkruin  trace 1 vezel 2),nan,nan,Waterhammer,Droog,12-10-2026
+IJK-029,11:26:00,11:37:30,11:37:50,Kabel 1 (lang): IJken RD locatie,Raai 3,Raai-punt 3 (Dijktalud trace 2 vezel 3),202933.5325,494123.5008,Waterhammer,Droog,12-10-2026
+IJK-030,11:28:00,11:38:20,11:38:45,Kabel 1 (lang): IJken RD locatie,Raai 3,Raai-punt 4 (Dijktalud  trace 2 vezel 4),202933.2787,494124.1336,Waterhammer,Droog,12-10-2026
+IJK-031,11:30:00,11:39:20,11:40:25,Kabel 1 (lang): IJken RD locatie,Raai 3,Raai-punt 5 (Dijkteen trace 3 vezel 5),202932.4443,494127.4187,Waterhammer,Droog,12-10-2026
+IJK-032,11:32:00,11:41:00,11:41:25,Kabel 1 (lang): IJken RD locatie,Raai 3,Raai-punt 6 (Dijkteen  trace 3 vezel 6),202932.0751,494127.7512,Waterhammer,Droog,12-10-2026
+IJK-033,11:34:00,11:42:10,11:42:30,Kabel 1 (lang): IJken RD locatie,Raai 3,Raai-punt 7 (polder trace 4 vezel 7/9),202928.4304,494134.7568,Waterhammer,Droog,12-10-2026
+IJK-034,11:36:00,11:43:30,11:44:40,Kabel 1 (lang): IJken RD locatie,Raai 3,Raai-punt 8 (polder  trace 4 vezel 8),202928.0328,494135.2318,Waterhammer,Droog,12-10-2026
+IJK-035,11:38:00,11:45:15,11:45:35,Kabel 1 (lang): IJken RD locatie,Raai 3,Raai-punt 9 (polder trace 4 vezel 10),202927.9548,494135.568,Waterhammer,Droog,12-10-2026
+IJK-036,11:40:00,11:46:10,11:46:30,Kabel 1 (lang): IJken RD locatie,Raai 3,Raai-punt 10 (polder  trace 4 vezel 17),202927.5457,494136.6094,Waterhammer,Droog,12-10-2026
+IJK-037,11:42:00,11:47:50,11:48:10,Kabel 2 (kort): IJken RD locatie,Raai 3,Raai-punt 11 (polder trace 4a vezel 4a),202926.9017,494140.0925,Waterhammer,Droog,12-10-2026
+IJK-038,11:44:00,11:49:00,11:49:20,Kabel 1 (lang): IJken RD locatie,Raai 3,Raai-punt 12 (polder  trace 5 vezel 11),202924.7303,494142.9222,Waterhammer,Droog,12-10-2026
+IJK-039,11:46:00,11:50:00,11:50:20,Kabel 1 (lang): IJken RD locatie,Raai 3,Raai-punt 13 (polder trace 5 vezel 12),202924.4193,494143.6386,Waterhammer,Droog,12-10-2026
+IJK-040,11:48:00,nan,nan,Kabel 1 (lang): IJken RD locatie,Raai 4,Raai-punt 1 (Dijkkruin trace 1 vezel 1),nan,nan,Waterhammer,Droog,12-10-2026
+IJK-041,11:50:00,nan,nan,Kabel 1 (lang): IJken RD locatie,Raai 4,Raai-punt 2 (Dijkkruin  trace 1 vezel 2),nan,nan,Waterhammer,Droog,12-10-2026
+IJK-042,11:52:00,11:52:00,11:59:15,Kabel 1 (lang): IJken RD locatie,Raai 4,Raai-punt 3 (Dijktalud trace 2 vezel 3),202948.3508,494127.3855,Waterhammer,Droog,12-10-2026
+IJK-043,11:54:00,12:00:00,12:00:30,Kabel 1 (lang): IJken RD locatie,Raai 4,Raai-punt 4 (Dijktalud  trace 2 vezel 4),202948.3831,494127.8632,Waterhammer,Droog,12-10-2026
+IJK-044,11:56:00,12:01:10,12:01:40,Kabel 1 (lang): IJken RD locatie,Raai 4,Raai-punt 5 (Dijkteen trace 3 vezel 5),202945.6484,494131.0036,Waterhammer,Droog,12-10-2026
+IJK-045,11:58:00,12:02:25,12:03:10,Kabel 1 (lang): IJken RD locatie,Raai 4,Raai-punt 6 (Dijkteen  trace 3 vezel 6),202943.0424,494131.0282,Waterhammer,Droog,12-10-2026
+IJK-046,12:00:00,12:03:50,12:04:15,Kabel 1 (lang): IJken RD locatie,Raai 4,Raai-punt 7 (polder trace 4 vezel 7/9),202941.7803,494140.108,Waterhammer,Droog,12-10-2026
+IJK-047,12:02:00,12:04:50,12:05:15,Kabel 1 (lang): IJken RD locatie,Raai 4,Raai-punt 8 (polder  trace 4 vezel 8),202941.6264,494140.7653,Waterhammer,Droog,12-10-2026
+IJK-048,12:04:00,12:05:45,12:24:00,Kabel 1 (lang): IJken RD locatie,Raai 4,Raai-punt 9 (polder trace 4 vezel 10),202941.4532,494141.0443,Waterhammer,Droog,12-10-2026
+IJK-049,12:06:00,12:24:40,12:25:00,Kabel 1 (lang): IJken RD locatie,Raai 4,Raai-punt 10 (polder  trace 4 vezel 17),202940.9689,494142.2382,Waterhammer,Droog,12-10-2026
+IJK-050,12:08:00,nan,nan,Kabel 2 (kort): IJken RD locatie,Raai 4,Raai-punt 11 (polder trace 4a vezel 4a),nan,nan,Waterhammer,Droog,12-10-2026
+IJK-051,12:10:00,12:26:40,12:27:10,Kabel 1 (lang): IJken RD locatie,Raai 4,Raai-punt 12 (polder  trace 5 vezel 11),202939.5563,494149.4706,Waterhammer,Droog,12-10-2026
+IJK-052,12:12:00,12:27:45,12:28:10,Kabel 1 (lang): IJken RD locatie,Raai 4,Raai-punt 13 (polder trace 5 vezel 12),202938.6505,494144.6144,Waterhammer,Droog,12-10-2026
+IJK-053,12:14:00,12:38:50,12:39:15,Kabel 2 (kort): IJken RD locatie,Raai 1,Raai-punt 10 (polder  trace 4 vezel 17),202887.3916,494123.263,Waterhammer,Droog,12-10-2026
+IJK-054,12:16:00,12:42:55,12:43:25,Kabel 2 (kort): IJken RD locatie,Raai 2,Raai-punt 11 (polder trace 4a vezel 4a),202911.5594,494133.3912,Waterhammer,Droog,12-10-2026
+IJK-055,12:18:00,12:44:10,12:44:45,Kabel 2 (kort): IJken RD locatie,Raai 3,Raai-punt 11 (polder trace 4a vezel 4a),202926.9017,494140.0925,Waterhammer,Droog,12-10-2026
+PRF-001g1,13:30:00,14:09:30,,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 1 (Dijkkruin),202885.3872,494107.8573,Houtje 1,Droog,12-10-2026
+PRF-001g2,13:30:00,14:09:50,,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 1 (Dijkkruin),202885.3872,494107.8573,Houtje 2,Droog,12-10-2026
+PRF-001h1,13:30:00,14:10:10,,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 1 (Dijkkruin),202885.3872,494107.8573,Harkje 1,Droog,12-10-2026
+PRF-001h2,13:30:00,14:10:30,,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 1 (Dijkkruin),202885.3872,494107.8573,Harkje 2,Droog,12-10-2026
+PRF-002g1,13:45:00,14:16:50,,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 1 (Dijkkruin),202884.5781,494108.9159,Houtje 1,Droog,12-10-2026
+PRF-002g2,13:45:00,14:17:10,,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 1 (Dijkkruin),202884.5781,494108.9159,Houtje 2,Droog,12-10-2026
+PRF-002h1,13:45:00,14:17:30,,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 1 (Dijkkruin),202884.5781,494108.9159,Harkje 1,Droog,12-10-2026
+PRF-002h2,13:45:00,14:17:50,,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 1 (Dijkkruin),202884.5781,494108.9159,Harkje 2,Droog,12-10-2026
+PRF-003g1,14:00:00,14:20:20,,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 1 (Dijkkruin),202883.8154,494112.4507,Houtje 1,Droog,12-10-2026
+PRF-003g2,14:00:00,14:20:40,,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 1 (Dijkkruin),202883.8154,494112.4507,Houtje 2,Droog,12-10-2026
+PRF-003h1,14:00:00,14:29:00,,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 1 (Dijkkruin),202883.8154,494112.4507,Harkje 1,Droog,12-10-2026
+PRF-003h2,14:00:00,14:29:20,,Kabel 1 (Daisy chain gekoppeld),Raai 1,Raai-punt 1 (Dijkkruin),202883.8154,494112.4507,Harkje 2,Droog,12-10-2026

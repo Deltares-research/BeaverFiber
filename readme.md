@@ -1,22 +1,24 @@
 # BeaverFiber
 
-BeaverFiber plots OptoDAS fiber-optic (DAS) recordings stored as `.hdf5` files:
+BeaverFiber visualizes Fiber-Optic DAS (Distributed Acoustic Sensing) recordings. Choose one of three tools:
 
-- **`view_events.py`** saves a waterfall plot and a noise/signal power spectrum
-  (PSD) for each test in your event list, and optionally a SEG-Y file.
-- **`waterfall_stream.py`** plays the recordings as a scrolling waterfall movie.
+| Tool | What it does |
+|------|---|
+| **view_events.py** | Save waterfall plots and noise/signal power spectra for specific tests |
+| **waterfall_stream.py** | Play recordings as a scrolling waterfall animation |
+| **event_movie.py** | Create map movies showing amplitude along the fiber over time (QGIS + MP4) |
 
-Your recordings are only read, never changed.
+## Quick Start
 
-## 1. Install
+### 1. Install
 
-Install [Pixi](https://pixi.sh), then open PowerShell in this folder and run:
+[Install Pixi](https://pixi.sh), then in this folder run:
 
 ```powershell
 pixi install
 ```
 
-## 2. Point to your data
+### 2. Configure your data
 
 Copy the example settings file:
 
@@ -24,101 +26,108 @@ Copy the example settings file:
 Copy-Item .env_example .env
 ```
 
-Open `.env` and set the folder with your `.hdf5` recordings (subfolders are
-included) and the path to your event list:
+Edit `.env` and point to your HDF5 recordings folder:
 
 ```dotenv
-data_folder = "C:/DAS/recordings"
-data_folder_ijken = "C:/DAS/recordings/ijken"
-data_folder_droog = "C:/DAS/recordings/droog"
-event_list = "C:/DAS/events.csv"
-event_list_dry = "C:/DAS/events_dry.csv"
+data_folder = "C:/path/to/your/recordings"
 ```
 
-`view_events.py` reads the keys selected in its `DATA_FOLDER` and `EVENT_LIST`
-settings from `.env` and passes those paths to `plot_events`. Change these keys
-to select a different data folder and event list. The shared `env_path("key")`
-helper always reads `.env` from the project root, independently of the current
-working directory. Relative paths are resolved relative to `.env`; missing or
-empty values raise an error.
-`waterfall_stream.py` uses `data_folder`.
+The event lists (CSV files) are already in the `event_lists/` folder.
 
-The event list is a CSV file with `Test-ID`, `Date`, and measurement
-time columns selected by their exact headers, regardless of column position. For example:
+### 3. Run a tool
 
-```csv
-Test-ID,Geplande Tijd (NTP),1e meting,2e meting,Date
-IJK-002,10:32:00,11:06:15,11:06:45,12-10-2026
-```
-
-- `Date`: required for each selected test, as `DD-MM-YYYY` or `YYYY-MM-DD`.
-- Measurement headers may have any name. Only the headers listed in
-  `MEASUREMENTS` are used; no columns are automatically selected.
-  Times must be `HH:MM:SS`; a missing/invalid time raises an error.
-- UTF-8 (with or without BOM) and Windows cp1252 CSV files are supported
-  automatically. The reader reports when it uses cp1252.
-
-## 3. Plot events
-
-Open `view_events.py`, edit the settings at the top, and run:
+Edit one of these files, adjust the settings at the top, then run:
 
 ```powershell
-pixi run view-events
+pixi run view-events       # Plot waterfall + power spectrum
+pixi run waterfall-stream  # Play as animated waterfall
+pixi run event-movie       # Create QGIS layer + MP4 video
 ```
+
+## Common Settings (all tools)
 
 | Setting | Meaning |
-|---|---|
-| `TEST_IDS` | Tests to plot, e.g. `["IJK-001", "IJK-027"]`. |
-| `MEASUREMENTS` | Non-empty list of exact CSV headers, e.g. `["1e meting", "2e meting"]`. |
-| `TIME_DELTA` | Clock difference between the event list and the recordings (UTC): UTC = event-list time − `TIME_DELTA`. |
-| `NOISE_SECONDS` | Seconds before the measurement (the noise window). |
-| `SIGNAL_SECONDS` | Seconds from the measurement onward (the signal window). |
-| `FIBER_RANGE_M` | Part of the fiber to show, in metres, e.g. `(20, 1250)`. `None` shows the whole fiber. |
-| `NORMALIZE_CHANNELS` | `True` gives every channel a similar color strength in the waterfall. |
-| `BANDPASS_HZ` | Frequency filter, e.g. `(5, 200)`. `None` means no filter. |
-| `ENVELOPE` | `True` uses the Hilbert amplitude envelope for each channel, after the bandpass filter if set. |
-| `INTERPOLATION` | Waterfall smoothing: `"nearest"` (none), `"bilinear"`, `"kaiser"`, ... |
-| `CLIP_QUANTILE` | Color contrast. `1.0` shows the full amplitude range; `0.99` clips the strongest 1 %, making weak signals easier to see. |
-| `SHOW_PLOTS` | `True` opens every plot in a window. |
-| `WRITE_SEGY` | `True` also saves a `.sgy` file to open in seismic software. |
+|---------|---------|
+| `TEST_IDS` | Which tests to process, e.g. `["TST-001", "TST-002"]` |
+| `MEASUREMENTS` | Which measurement columns from the CSV to include |
+| `TIME_DELTA` | Clock offset between event list and recordings (timedelta) |
+| `FIBER_RANGE_M` | Fiber section to show, e.g. `(20, 1250)` or `None` for all |
+| `BANDPASS_HZ` | Frequency filter range, e.g. `(5, 200)` or `None` for none |
+| `CLIP_QUANTILE` | Color contrast: `0.99` clips strongest 1%, `1.0` shows full range |
 
-Results are saved in a subfolder of `outputs/` named after the selected data
-folder. For example, recordings in `nat_20261028` produce files such as
-`outputs/nat_20261028/IJK-001_1e_meting_waterfall_psd.png` (and `.sgy`).
+## Tool-Specific Settings
 
-The waterfall shows fiber distance horizontally and time (UTC) vertically, with
-a dashed line at the measurement. The PSD panel compares the average spectrum of
-the noise window with that of the signal window.
+### view_events.py
 
-The PSD and SEG-Y file use the same processed samples as the waterfall: the
-bandpass filter, followed by the envelope, when enabled. Normalization affects
-only the waterfall display. The SEG-Y file contains one trace per channel. The
-fiber distance is stored as receiver X (in millimetres, scalar −1000) and the
-exact start and measurement times are in the text header.
-
-## 4. Play a waterfall movie
-
-Open `waterfall_stream.py`, set `START_DATETIME`, `STOP_DATETIME` and the other
-settings, and run:
-
-```powershell
-pixi run waterfall-stream
+```python
+NOISE_SECONDS = 10          # Pre-event window (seconds)
+SIGNAL_SECONDS = 10         # Post-event window (seconds)
+ENVELOPE = False            # Use Hilbert amplitude envelope
+NORMALIZE_CHANNELS = False  # Equalize channel colors
+INTERPOLATION = "kaiser"    # Waterfall smoothing
+SHOW_PLOTS = False          # Open plots in a window
+WRITE_SEGY = True           # Save as SEG-Y file
 ```
 
-Press **Space** or click **Pause** to pause; close the window to stop.
+**Output:** `outputs/<folder>/<test>_<measurement>_waterfall_psd.png` and `.sgy`
 
-`TIMEZONE` is the time zone of the start and stop times, for example
-`"Europe/Amsterdam"` or `"UTC"`. For a fixed offset use `"Etc/GMT-1"` for
-UTC+1 or `"Etc/GMT+1"` for UTC−1 (the sign is reversed).
+### waterfall_stream.py
 
-If the movie stutters, lower `MAX_TIME_ROWS`, `FPS` or `PLAYBACK_SPEED`, or
-select a shorter `FIBER_RANGE_M`.
+```python
+START_DATETIME = "2026-10-12 11:01:00"
+STOP_DATETIME = "2026-10-12 11:06:00"
+TIMEZONE = "Europe/Amsterdam"
+DISPLAY_SECONDS = 10        # Time window shown at once
+PLAYBACK_SPEED = 4.0        # Speed factor (4x = 4 real seconds per 1 screen second)
+MAX_TIME_ROWS = 1000        # Lower = faster but choppier
+```
 
-## Common errors
+**Usage:** Press Space to pause/resume, close window to stop.
 
-- **No valid ... time for ...**: the measurement time for that test is empty in
-  the event list.
-- **Recordings do not cover the complete requested time** or **Gap in
-  recordings**: part of the requested time is missing from your recordings.
-- **Skipping unreadable recording ...**: that `.hdf5` file is damaged or
-  incomplete; it is ignored.
+### event_movie.py
+
+```python
+SLICE_INTERVAL_S = 0.02     # Time between frames
+UPSAMPLE_FACTOR = 4         # Map points per channel spacing
+WRITE_GEOPACKAGE = True     # Create QGIS layer
+WRITE_MP4 = True            # Create MP4 video
+FRAME_RATE = 10             # MP4 fps
+BASEMAP = "Esri.WorldImagery"  # Background ("None" for offline)
+WATERFALL_INSET = True      # Show waterfall animation beside map
+MAP_EXTENT_RD = None        # Zoom region or None for full fiber
+```
+
+**Output:** 
+- `outputs/<folder>/<test>_<measurement>_time_slices.gpkg` (QGIS)
+- `outputs/<folder>/<test>_<measurement>_time_slices.mp4` (video)
+
+## Event List Format
+
+Your CSV must include these columns (in any order):
+
+```csv
+Test-ID,Date,<measurement columns...>
+IJK-001,12-10-2026,11:06:15,11:06:45
+```
+
+- **Test-ID**: Unique identifier matching your files
+- **Date**: `DD-MM-YYYY` or `YYYY-MM-DD`
+- **Measurement columns**: Any header names; times are `HH:MM:SS`
+
+Supported encodings: UTF-8, UTF-8 with BOM, Windows-1252.
+
+## Fiber Map (for event_movie.py)
+
+The file `channel_fiber_map/channel_mapped_fiber.gpkg` maps HDF5 channels to their geographic positions. It's used automatically when creating MP4 movies and QGIS layers.
+
+## Troubleshooting
+
+| Error | Solution |
+|-------|----------|
+| **No valid time for...** | Check the measurement time is not empty in your CSV |
+| **Recordings do not cover...** | Verify your time range exists in your HDF5 files |
+| **Skipping unreadable...** | That HDF5 file may be damaged; check with another tool |
+
+---
+
+Your recordings are only read; they are never modified.
